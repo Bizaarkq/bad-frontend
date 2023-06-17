@@ -1,4 +1,4 @@
-const url = "localhost/api";
+const url = "localhost:5000/api"
 
 export const endpoints = {
     auth: {
