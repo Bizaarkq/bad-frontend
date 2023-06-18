@@ -94,16 +94,20 @@ import {
             (seleccionado) => seleccionado.producto?.id_pro !== idProducto
           );
           setProductosSeleccionados(nuevosProductosSeleccionados);
-          // const ids = nuevosProductosSeleccionados.map(x => x.producto?.id_pro)
-          // formik.setFieldValue("Productos", ids);
+          const ids = nuevosProductosSeleccionados.map((seleccionado) => ({
+            IdProd: seleccionado.producto?.id_pro
+          }));
+          formik.setFieldValue("Productos", ids);
         } else {
           // Seleccionar el producto
           setProductosSeleccionados([
             ...productosSeleccionados,
             productoSeleccionado
           ]);
-          // const ids = productosSeleccionados.map(x => x.producto?.id_pro)
-          // formik.setFieldValue("Productos", ids);
+          const ids = [...productosSeleccionados, productoSeleccionado].map((seleccionado) => ({
+            IdProd: seleccionado.producto?.id_pro
+          }));
+          formik.setFieldValue("Productos", ids);
         }
       }
     };
@@ -144,9 +148,6 @@ import {
                   flex: 1,
                 }}
               >
-                <Typography variant="h4" gutterBottom>
-                  Detalle del pedido
-                </Typography>
                 <Grid item xs={12} sm={6}>
                   <Autocomplete
                     options={pedidos}
@@ -174,6 +175,9 @@ import {
                   {pedidoSeleccionado && (
                     <>
                       <br />
+                      <Typography variant="h4" gutterBottom>
+                        Detalle del pedido
+                      </Typography>
                       <Typography variant="h5" gutterBottom>
                         Datos del cliente
                       </Typography>
@@ -229,8 +233,31 @@ import {
                           </ul>
                         </Grid>
                       </Grid>
+                      <br />
+                      <Grid sx={{ display: "flex", flexDirection: "column", gap: "20px", flex: 1, }} >
+                        <Typography variant="h4" gutterBottom>
+                          Datos del envío
+                        </Typography>
+                        <Grid item xs={12} sm={6}>
+                          <TextField
+                            label="Código"
+                            name="codigo"
+                            value={formik.values.Codigo}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={
+                              formik.touched.Codigo &&
+                              Boolean(formik.errors.Codigo)
+                            }
+                            helperText={
+                              formik.touched.Codigo &&
+                              formik.errors.Codigo
+                            }
+                            fullWidth
+                          />
+                        </Grid>
+                      </Grid>
                     </>
-                    
                   )}
                 </Grid>
               </Grid>
