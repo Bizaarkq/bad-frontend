@@ -21,3 +21,6 @@ export const pedidos = {
 export const producto = {
     getProductos: `http://${url}/Producto`,
 }
+export const bodega = {
+    getBodegas: `http://${url}/Bodega`,
+}

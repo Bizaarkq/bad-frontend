@@ -14,7 +14,7 @@ import {
   import EnvioService from "../../services/envios";
 
   const EnvioSchema = Yup.object().shape({
-    IdPed: Yup.number().nullable().required("El campo pedido es requerido"),
+    IdPed: Yup.number().required("El campo pedido es requerido"),
     Codigo: Yup.string().required("Requerido"),
     Fecha: Yup.date().required("Requerido"),
     FechaEntregaEstimada: Yup.date().required("Requerido"),
@@ -25,6 +25,7 @@ import {
     Notas: Yup.string().required("Requerido"),
     CostoEnvio: Yup.number().required("Campo requerido"),
     Productos: Yup.array().required("Campo requerido"),
+    IdBodega: Yup.number().required("El campo bodega es requerido"),
   });
   
   
@@ -33,11 +34,12 @@ import {
     const [pedidos, setPedido] = useState([]);
     const [productosPedido, setProductosPedido] = useState([]);
     const [ pedidoSeleccionado, setPedidoSeleccionado ] = useState("");
+    const [bodegas, setBodegas] = useState([]);
+    const [ bodegaSeleccionada, setBodegaSeleccionada ] = useState("");
   
     const fetchPedidos = async () => {
       try {
         const response = await EnvioService.getPedidos();
-        // const json = await response.json();
         console.log(response)
         setPedido(response);
       } catch (error) {
@@ -50,19 +52,26 @@ import {
     }, []);
   
     const handleSelectChange = async (value) => {
-      console.log(value)
       formik.setFieldValue("IdPed", value? value.idPed : null );
       setPedidoSeleccionado(value);
       if (value) {
         try {
           const pedido = await EnvioService.getProductosXPedidos(value.idPed);
           setProductosPedido(pedido);
+          const bodega = await EnvioService.getBodegas()
+          setBodegas(bodega)
+          console.log(bodega)
         } catch (error) {
           console.log(error);
         }
       } else {
         setProductosPedido(null);
       }
+    };
+
+    const handleSelectChangeBodega = async (value) => {
+      formik.setFieldValue("IdBodega", value? value.idBodega : null );
+      setBodegaSeleccionada(value);
     };
   
     const initialValues = (envio) => ({
@@ -76,6 +85,8 @@ import {
       EstadoActual: "",
       FechaEntregaEstimada: "",
       Notas: "",
+      IdBodega: null,
+      CostoEnvio: 0
     });
   
     const formik = useFormik({
@@ -193,6 +204,29 @@ import {
                         <Typography variant="h4" gutterBottom align="center" >
                           Productos a enviar
                         </Typography>
+                        <Autocomplete
+                          options={bodegas}
+                          sx={{ width: "100%" }}
+                          value={bodegaSeleccionada}
+                          getOptionLabel={(option) => option.nombre || "" }
+                          isOptionEqualToValue={(option, value) =>  option.value === value.value}
+                          onChange={(event, value) => handleSelectChangeBodega(value)}
+                          onBlur={formik.handleBlur}
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              label="Bodega"
+                              name="IdBodega"
+                              error={
+                                formik.touched.IdBodega &&
+                                Boolean(formik.errors.IdBodega)
+                              }
+                              helperText={
+                                formik.touched.IdBodega &&
+                                formik.errors.IdBodega
+                              }/>
+                          )}
+                        />
                         {/* Contenido de productos a enviar */}
                         <Typography variant="h6" gutterBottom align="center" >
                           Seleccionar productos para enviar
