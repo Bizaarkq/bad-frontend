@@ -6,6 +6,7 @@ import {
   Autocomplete,
   Card,
   CardContent,
+  List, ListItem, ListItemIcon, ListItemText, Checkbox,
   } from "@mui/material";
   import { Form, Formik, useFormik, Field, ErrorMessage } from "formik";
   import * as Yup from "yup";
@@ -171,29 +172,56 @@ import {
                   <Grid item xs={12} sm={6}>
                     <Card style={{ minHeight: '100%' }} >
                       <CardContent>
-                        <Typography variant="h4" gutterBottom align="center" >
+                        <Typography variant="h5" gutterBottom align="center" >
                           Detalle del pedido
                         </Typography>
                         {/* Contenido del detalle del pedido */}
-                        <Typography variant="h5" gutterBottom align="center" >
+                        <Typography variant="h6" gutterBottom align="center" >
                               Datos del cliente
                         </Typography>
-                        <p>Nombres: {pedidoSeleccionado.cliente?.nombres}</p>
-                        <p>Apellidos: {pedidoSeleccionado.cliente?.apellidos}</p>
+                        <Grid item sx={{ width: "100%" }} style={{ marginBottom: '16px' }} >
+                          <TextField
+                            label="Nombres"
+                            name="nombres"
+                            value={pedidoSeleccionado.cliente?.nombres}
+                            InputProps={{
+                              readOnly: true, // Establecer como solo lectura
+                            }}
+                            fullWidth
+                          />
+                        </Grid>
+                        <Grid item sx={{ width: "100%" }} style={{ marginBottom: '16px' }} >
+                          <TextField
+                            label="Apellidos"
+                            name="apellidos"
+                            value={pedidoSeleccionado.cliente?.apellidos}
+                            InputProps={{
+                              readOnly: true, // Establecer como solo lectura
+                            }}
+                            fullWidth
+                          />
+                        </Grid>
                           {/* Mostrar más detalles del cliente si es necesario */}
-                        <Typography variant="h5" gutterBottom align="center" >
+                        <Typography variant="h6" gutterBottom align="center" >
                           Productos del pedido
                         </Typography>
-                        <ul>
-                          {productosPedido?.map((producto) => (
-                            <li key={producto.producto?.id_pro}>
-                              <p>Nombre: {producto.producto?.nombre}</p>
-                              <p>Precio: {producto.producto?.precio}</p>
-                              <p>Cantidad: {producto.cantidad}</p>
-                              {/* Mostrar más detalles del producto si es necesario */}
-                            </li>
-                          ))}
-                        </ul>
+                        <br />
+                        <Grid item sx={{ width: "100%" }} style={{ marginBottom: '16px' }} >
+                          <TextField
+                            label="Detalles del pedido"
+                            multiline
+                            rows={5}
+                            value={productosPedido?.map((producto) => (
+                              `Nombre: ${producto.producto?.nombre}\n` +
+                              `Precio: ${producto.producto?.precio}\n` +
+                              `Cantidad: ${producto.cantidad}\n\n`
+                            )).join('')}
+                            InputProps={{
+                              readOnly: true, // Establecer como solo lectura
+                            }}
+                            fullWidth
+                          />
+                        </Grid>
                       </CardContent>
                     </Card>
                   </Grid>
@@ -201,7 +229,7 @@ import {
                   <Grid item xs={12} sm={6}>
                     <Card style={{ minHeight: '100%' }} >
                       <CardContent>
-                        <Typography variant="h4" gutterBottom align="center" >
+                        <Typography variant="h5" gutterBottom align="center" >
                           Productos a enviar
                         </Typography>
                         <Autocomplete
@@ -231,29 +259,36 @@ import {
                         <Typography variant="h6" gutterBottom align="center" >
                           Seleccionar productos para enviar
                         </Typography>
-                        <ul>
-                          {productosPedido.map((producto) => (
-                            <li key={producto.producto?.id_pro}>
-                              <input
-                                type="checkbox"
-                                checked={productosSeleccionados.some(
-                                  (seleccionado) => seleccionado.producto?.id_pro === producto.producto?.id_pro
-                                )}
-                                onChange={() => handleProductoSeleccionado(producto.producto?.id_pro)}
-                              />
-                              <label>{producto.producto?.nombre}</label>
-                            </li>
-                          ))}
-                        </ul>
+                        <Grid item sx={{ width: "100%" }} style={{ marginBottom: '16px' }} >
+                          <List>
+                            {productosPedido.map((producto) => (
+                              <ListItem key={producto.producto?.id_pro}>
+                                <ListItemIcon>
+                                  <Checkbox
+                                    checked={productosSeleccionados.some(
+                                      (seleccionado) => seleccionado.producto?.id_pro === producto.producto?.id_pro
+                                    )}
+                                    onChange={() => handleProductoSeleccionado(producto.producto?.id_pro)}
+                                  />
+                                </ListItemIcon>
+                                <ListItemText primary={producto.producto?.nombre} />
+                              </ListItem>
+                            ))}
+                          </List>
+                        </Grid>
                         {/* Mostrar los productos seleccionados */}
                         <Typography variant="h6" gutterBottom align="center" >
                           Productos seleccionados para enviar
                         </Typography>
-                        <ul>
-                          {productosSeleccionados.map((producto) => (
-                            <li key={producto.producto?.id_pro}>{producto.producto?.nombre}</li>
-                          ))}
-                        </ul>
+                        <Grid item sx={{ width: "100%" }} style={{ marginBottom: '16px' }} >
+                          <List>
+                            {productosSeleccionados.map((producto) => (
+                              <ListItem key={producto.producto?.id_pro}>
+                                <ListItemText primary={'- ' + producto.producto?.nombre} />
+                              </ListItem>
+                            ))}
+                          </List>
+                        </Grid>
                       </CardContent>
                     </Card>
                   </Grid>
@@ -265,7 +300,7 @@ import {
                   <Grid item xs={12} sm={6}>
                     <Card style={{ width: "100%", maxWidth: "100%" }} >
                       <CardContent>
-                        <Typography variant="h4" gutterBottom align="center" >
+                        <Typography variant="h5" gutterBottom align="center" >
                           Datos del envío
                         </Typography>
                         {/* Contenido del detalle del pedido */}
