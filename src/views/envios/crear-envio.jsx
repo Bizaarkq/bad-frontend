@@ -14,7 +14,7 @@ export default function NuevoEnvio() {
     console.log(values)
     const response = await EnvioService.create(values);
     console.log(response)
-    if (response.ok) {
+    if (response) {
       setUpdated(true);
       navigate("/logistica/envios");
     }else{

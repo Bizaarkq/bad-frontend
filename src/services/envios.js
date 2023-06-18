@@ -1,4 +1,4 @@
-import { envios, pedidos, producto } from "./endpoints";
+import { envios, pedidos, producto, bodega } from "./endpoints";
 import Axios from "axios";
 
 export const getAll = async () => {
@@ -26,11 +26,17 @@ export const getProductos = async () => {
     const response = await Axios.get(producto.getProductos);
     return response.data;
 }
+// get de bodega
+export const getBodegas = async () => {
+    const response = await Axios.get(bodega.getBodegas);
+    return response.data;
+}
 
 export default {
     getAll,
     create,
     getPedidos,
     getProductos,
-    getProductosXPedidos
+    getProductosXPedidos,
+    getBodegas
 }
