@@ -9,16 +9,15 @@ export function UserProvider({children}) {
     const [userlocal, setUserlocal] = useLocalStorage("user", {});
 
     useEffect(() => {
-        if (Object.keys(user).length) {
-            setToken(user.access_token);
+        if (Object.keys(user).length && !Object.keys(userlocal).length) {
+            setToken(user.jwt);
             setUserlocal(user);
         }
 
-        if (Object.keys(userlocal).length) {
+        if (Object.keys(userlocal).length && !Object.keys(user).length) {
             setUser(userlocal);
         }
 
-        console.log("userContext.jsx: user after check: ", user)
     }, [user]);
 
     return (

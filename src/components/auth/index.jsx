@@ -27,13 +27,12 @@ export default function LoginForm() {
 
     const onSubmit = async (values) => {
         console.log(values);
-        let user = await authService.login(values);
-        setUser(user.data);
-        console.log("LoginForm.jsx: login: ", user.data);
+        let userResp = await authService.login(values);
+        await setUser(userResp);
         console.log("LoginForm.jsx: user: ", user);
-
-        navigate("/home");
-
+        if (user.roles.includes("cliente")) navigate("/store");
+        if (user.roles.includes("logistica")) navigate("/logistica");
+        if (user.roles.includes("transporte")) navigate("/transporte");
     };
 
     return (

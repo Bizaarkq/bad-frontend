@@ -57,7 +57,7 @@ export default function ListEnvios() {
             Envíos
         </Typography>
         
-        <Link to="/transport/create">
+        <Link to="/logistica/nuevo-envio">
         <Button variant="contained" color="primary" startIcon={<AddIcon/>}>
           Agregar Envío
         </Button>

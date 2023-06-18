@@ -22,3 +22,39 @@ export const MENU_PANEL = [
         path: '/transport/index'
     },
 ]
+
+
+export const menu = {
+    "cliente": [
+        {
+            name: 'Comprar',
+            icon: '',
+            path: '/store'
+        },
+        {
+            name: 'Mis Pedidos',
+            icon: '',
+            path: '/pedidos'
+        }
+    ],
+    "logistica": [
+        {
+            name: 'Gestionar envios',
+            icon: '',
+            path: '/logistica/envios'
+        }
+    ],
+    "transporte": [
+        {
+            name: 'Seguimiento envíos',
+            icon: '',
+            path: '/transporte/envios'
+        }
+    ]
+}
+
+export const lateral = {
+    name: 'Inicio',
+    icon: 'home',
+    path: '/inicio'
+}

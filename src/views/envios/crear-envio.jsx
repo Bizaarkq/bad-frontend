@@ -14,7 +14,7 @@ export default function NuevoEnvio() {
     const response = await EnvioService.create(values);
     if (response.ok) {
       setUpdated(true);
-      navigate("/transport/index");
+      navigate("/logistica/envios");
     }else{
       setFailed(true);
     }
