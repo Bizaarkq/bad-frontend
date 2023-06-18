@@ -9,8 +9,8 @@ export const endpoints = {
 }
 
 export const envios = {
-    getEnvios: `http://${url}/envios`,
-    createEnvio: `http://${url}/envios/store`,
+    getEnvios: `http://${url}/envio`,
+    createEnvio: `http://${url}/envio`,
 }
 
 export const pedidos = {

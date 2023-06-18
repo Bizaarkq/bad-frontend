@@ -27,7 +27,7 @@ export default function ListEnvios() {
     EnvioService.getAll()
       .then((response) => {
         setEnvios(
-          response.envios.map((envio) => {
+          response.map((envio) => {
             return {
               id: envio.id,
               direccion_origen: envio.direccion_origen,
