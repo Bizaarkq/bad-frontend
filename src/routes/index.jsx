@@ -4,6 +4,10 @@ import AuthLayout from "../layout/auth";
 import LoginForm from "../components/auth";
 import Inicio from '../views/inicio';
 import Layout from '../layout/main';
+import Envios from '../views/envios/index';
+import NuevoEnvio from '../views/envios/crear-envio';
+
+
 
 const router = createBrowserRouter([
     {
@@ -60,7 +64,11 @@ const router = createBrowserRouter([
                         children: [
                             {
                                 path: "/transport/index",
-                                element: <h1>Inicio</h1>
+                                element: <Envios />
+                            },
+                            {
+                                path: "/transport/create",
+                                element: <NuevoEnvio />
                             },
                             {
                                 path: "/transport/orders",
