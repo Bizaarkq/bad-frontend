@@ -15,8 +15,8 @@ export default function ProtectedRoute ({ rol }) {
         if (!Object.keys(user).length) {
             navigate("/auth/login");
         }
-
-        if (Object.keys(user).length && rol && user.user.rol !== rol) {
+        
+        if (Object.keys(user).length && user.roles.includes(rol)) {
             navigate("/not-authorized");
         }
 

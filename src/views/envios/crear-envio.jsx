@@ -16,7 +16,7 @@ export default function NuevoEnvio() {
     console.log(response)
     if (response.ok) {
       setUpdated(true);
-      navigate("/transport/index");
+      navigate("/logistica/envios");
     }else{
       setFailed(true);
     }

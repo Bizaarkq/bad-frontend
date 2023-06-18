@@ -6,6 +6,7 @@ import Inicio from '../views/inicio';
 import Layout from '../layout/main';
 import Envios from '../views/envios/index';
 import NuevoEnvio from '../views/envios/crear-envio';
+import { menu } from '../services/constantes';
 
 
 
@@ -19,24 +20,12 @@ const router = createBrowserRouter([
                 element: <Layout />,
                 children: [
                     {
-                        path: '/',
-                        element: <Inicio />,
-                    },
-                    {
-                        path: '/inicio',
-                        element: <Inicio />,
-                    },
-                    {
                         path: "/store",
-                        element: <ProtectedRoute rol="cliente" />,
+                        element: <ProtectedRoute rol={["cliente"]} />,
                         children: [
                             {
                                 path: "/store",
-                                element: <h1>Layout</h1>
-                            },
-                            {
-                                path: "/store/index",
-                                element: <h1>Inicio</h1>
+                                element: <Inicio menu={menu.cliente} />
                             },
                             {
                                 path: "/store/cart",
@@ -45,33 +34,33 @@ const router = createBrowserRouter([
                         ]
                     },
                     {
-                        path: "/logistics",
-                        element: <ProtectedRoute rol="logistica" />,
+                        path: "/logistica",
+                        element: <ProtectedRoute rol={["logistica"]} />,
                         children: [
                             {
-                                path: "/logistics/index",
-                                element: <h1>Inicio</h1>
+                                path: "/logistica",
+                                element: <Inicio menu={menu.logistica} />
                             },
                             {
-                                path: "/logistics/orders",
-                                element: <h1>Pedidos</h1>
+                                path: "/logistica/envios",
+                                element: <Envios />
+                            },
+                            {
+                                path: "/logistica/nuevo-envio",
+                                element: <NuevoEnvio />
                             }
                         ]
                     },
                     {
-                        path: "/transport",
-                        element: <ProtectedRoute rol="transporte" />,
+                        path: "/transporte",
+                        element: <ProtectedRoute rol={["transporte"]} />,
                         children: [
                             {
-                                path: "/transport/index",
-                                element: <Envios />
+                                path: "/transporte",
+                                element: <Inicio menu={menu.transporte} />
                             },
                             {
-                                path: "/transport/create",
-                                element: <NuevoEnvio />
-                            },
-                            {
-                                path: "/transport/orders",
+                                path: "/transporte/orders",
                                 element: <h1>Pedidos</h1>
                             }
                         ]

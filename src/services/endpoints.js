@@ -1,11 +1,9 @@
-const url = "localhost:5164/api"
+const url = "localhost:5164/api";
 
 export const endpoints = {
     auth: {
-        login: `http://${url}/auth/login`,
-        me: `http://${url}/auth/me`,
-        logout: `http://${url}/auth/logout`
-    }    
+        login: `http://${url}/Auth/Login`
+    }
 }
 
 export const envios = {
