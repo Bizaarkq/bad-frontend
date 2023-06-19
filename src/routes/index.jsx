@@ -13,7 +13,7 @@ import { menu } from '../services/constantes';
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <ProtectedRoute />,
+        element: <ProtectedRoute rol={["cliente", "logistica", "transporte"]}/>,
         children: [
             {
                 path: "/",
