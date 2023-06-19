@@ -13,6 +13,7 @@ import {
   Box,
   Divider,
 } from "@mui/material";
+import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from "@mui/icons-material/Menu";
 import Icon from "@mui/material/Icon";
 import CloseIcon from "@mui/icons-material/Close";
@@ -61,6 +62,14 @@ export default function Menu() {
           <Typography component={Link} to={inicio} variant="h6" sx={{ flexGrow: 1, textDecoration: "none", color: "white" }}>
             Amazon Services
           </Typography>
+          <IconButton 
+            color="inherit" 
+            component={Link} 
+            onClick={() => setUser({})}
+            to="/auth/login"
+          >
+            <LogoutIcon />
+          </IconButton>
         </Toolbar>
         <Drawer anchor="left" open={open} onClose={menuAbierto}>
           <Box sx={{ marginLeft: "auto" }}>
