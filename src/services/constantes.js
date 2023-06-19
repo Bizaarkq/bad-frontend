@@ -29,7 +29,7 @@ export const menu = {
         {
             name: 'Comprar',
             icon: '',
-            path: '/store'
+            path: '/store/shop'
         },
         {
             name: 'Mis Pedidos',
