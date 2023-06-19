@@ -26,13 +26,18 @@ export default function LoginForm() {
     };
 
     const onSubmit = async (values) => {
-        console.log(values);
         let userResp = await authService.login(values);
+        console.log("LoginForm.jsx: userResp: ", userResp);
         await setUser(userResp);
         console.log("LoginForm.jsx: user: ", user);
-        if (user.roles.includes("cliente")) navigate("/store");
-        if (user.roles.includes("logistica")) navigate("/logistica");
-        if (user.roles.includes("transporte")) navigate("/transporte");
+        
+        navigate( 
+            userResp.roles.includes("cliente") 
+            ? "/store"
+            : userResp.roles.includes("logistica")
+                ? "/logistica"
+                : "/transporte"
+        );
     };
 
     return (
