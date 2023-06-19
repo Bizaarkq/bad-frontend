@@ -24,14 +24,37 @@ const pagoSchema = Yup.object().shape({
 export default function PagoCarrito() {
   const { cart, setCart } = useCart();
   const { user, setUser } = useAuth();
+  const [items, setItems] = useState([]);
 
   const [total, setTotal] = useState(0);
 
   useEffect(() => {
     let total = 0;
-    cart.items.forEach((p) => {
-      total += p.precio;
+
+    //ordenando carrito
+    const items = cart.items.reduce((acc, item) => {
+      const found = acc.find((i) => i.id_prod === item.id_prod);
+      if (found) {
+        found.cantidad += 1;
+      } else {
+        acc.push({
+          id_prod: item.id_prod,
+          nombre: item.nombre,
+          descripcion: item.descripcion,
+          precio: item.precio,
+          cantidad: 1,
+        });
+      }
+      return acc;
+    }, []);
+
+    setItems(items);
+
+    //calculando total
+    items.forEach((item) => {
+      total += item.precio * item.cantidad;
     });
+
     setTotal(total);
   }, [cart]);
 
@@ -47,7 +70,7 @@ export default function PagoCarrito() {
           Productos
         </Typography>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          {cart.items.map((p) => (
+          {items.map((p) => (
             <Grid item xs={12} sm={6} md={4} key={p.id_prod}>
               <Card key={p.id_prod}>
                 <CardContent>
@@ -58,7 +81,10 @@ export default function PagoCarrito() {
                     {p.descripcion}
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
-                    {p.precio}
+                    precio: {p.precio}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    cantidad: {p.cantidad}
                   </Typography>
                 </CardContent>
               </Card>
