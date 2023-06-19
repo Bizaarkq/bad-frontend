@@ -7,8 +7,9 @@ import Layout from '../layout/main';
 import Envios from '../views/envios/index';
 import SeguimientoEnvio from '../views/seguimientoEnvios/index';
 import NuevoEnvio from '../views/envios/crear-envio';
+import Store from "../views/carrito";
 import { menu } from '../services/constantes';
-
+import PagoCarrito from "../views/carrito/pagoCarrito";
 
 
 const router = createBrowserRouter([
@@ -29,8 +30,12 @@ const router = createBrowserRouter([
                                 element: <Inicio menu={menu.cliente} />
                             },
                             {
+                                path: "/store/shop",
+                                element: <Store />
+                            },
+                            {
                                 path: "/store/cart",
-                                element: <h1>Carrito</h1>
+                                element: <PagoCarrito />
                             }
                         ]
                     },

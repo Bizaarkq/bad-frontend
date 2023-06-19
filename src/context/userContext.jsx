@@ -5,20 +5,18 @@ const UserContext = React.createContext({});
 
 export function UserProvider({children}) {
     const [user, setUser] = useState({});
-    const [token, setToken] = useLocalStorage("token", "");
     const [userlocal, setUserlocal] = useLocalStorage("user", {});
+    console.log("contexto hook", user, userlocal);
+    
+    useEffect(() => {
+        setUserlocal(user);
+    }, [user]);
 
     useEffect(() => {
-        if (Object.keys(user).length && !Object.keys(userlocal).length) {
-            setToken(user.jwt);
-            setUserlocal(user);
-        }
-
-        if (Object.keys(userlocal).length && !Object.keys(user).length) {
+        if (Object.keys(userlocal).length) {
             setUser(userlocal);
         }
-
-    }, [user]);
+    }, []);
 
     return (
         <UserContext.Provider value={{user, setUser}}>

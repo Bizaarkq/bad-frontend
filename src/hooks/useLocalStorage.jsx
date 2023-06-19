@@ -4,7 +4,6 @@ export default function useLocalStorage(key, initialValue) {
     const [storedValue, setStoredValue] = useState(() => {
         try {
             const item = localStorage.getItem(key);
-            console.log("useLocalStorage.jsx: item: ", item)
             return item ? JSON.parse(item) : initialValue;
         } catch (error) {
             console.log(error);
