@@ -11,8 +11,10 @@ export default function NuevoEnvio() {
   const [failed, setFailed] = useState(false);
 
   const createEnvio = useCallback(async (values) => {
+    console.log(values)
     const response = await EnvioService.create(values);
-    if (response.ok) {
+    console.log(response)
+    if (response) {
       setUpdated(true);
       navigate("/logistica/envios");
     }else{

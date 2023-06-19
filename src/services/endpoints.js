@@ -7,8 +7,9 @@ export const endpoints = {
 }
 
 export const envios = {
-    getEnvios: `http://${url}/envios`,
-    createEnvio: `http://${url}/envios/store`,
+    getEnvios: `http://${url}/envio`,
+    createEnvio: `http://${url}/envio`,
+    getSeguimientos: `http://${url}/Envio/seguimientos`,
 }
 
 export const pedidos = {
@@ -18,4 +19,11 @@ export const pedidos = {
 
 export const producto = {
     getProductos: `http://${url}/Producto`,
+}
+export const bodega = {
+    getBodegas: `http://${url}/Bodega`,
+}
+
+export const seguimientos = {
+    createSeguimiento: `http://${url}/Seguimiento`,
 }

@@ -26,10 +26,12 @@ export default function ListEnvios() {
   const retrieveEnvios = () => {
     EnvioService.getAll()
       .then((response) => {
+        console.log(response)
         setEnvios(
-          response.envios.map((envio) => {
+          response.map((envio) => {
             return {
               id: envio.id,
+              codigo: envio.codigo,
               direccion_origen: envio.direccion_origen,
               direccion_destino: envio.direccion_destino,
               estado_actual: envio.estado_actual,
