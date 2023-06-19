@@ -5,6 +5,7 @@ import LoginForm from "../components/auth";
 import Inicio from '../views/inicio';
 import Layout from '../layout/main';
 import Envios from '../views/envios/index';
+import SeguimientoEnvio from '../views/seguimientoEnvios/index';
 import NuevoEnvio from '../views/envios/crear-envio';
 import { menu } from '../services/constantes';
 
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
                             {
                                 path: "/transporte/orders",
                                 element: <h1>Pedidos</h1>
+                            },
+                            {
+                                path: "/transporte/envios",
+                                element: <SeguimientoEnvio />
                             }
                         ]
                     }

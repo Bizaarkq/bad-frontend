@@ -1,4 +1,4 @@
-import { envios, pedidos, producto, bodega } from "./endpoints";
+import { envios, pedidos, producto, bodega, seguimientos } from "./endpoints";
 import Axios from "axios";
 
 export const getAll = async () => {
@@ -32,11 +32,25 @@ export const getBodegas = async () => {
     return response.data;
 }
 
+// get de seguimientos por envio
+export const getSeguimientosXEnvio = async (id) => {
+    const response = await Axios.get(envios.getSeguimientos + '/' + id);
+    return response.data;
+}
+
+// post de seguimientos
+export const createSeguimiento = async (data) => {
+    const response = await Axios.post(seguimientos.createSeguimiento, data);
+    return response.data;
+}
+
 export default {
     getAll,
     create,
     getPedidos,
     getProductos,
     getProductosXPedidos,
-    getBodegas
+    getBodegas,
+    getSeguimientosXEnvio,
+    createSeguimiento
 }
